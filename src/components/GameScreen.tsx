@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../store/gameStore";
 import GameBoard from "./GameBoard";
@@ -124,6 +124,8 @@ const GameScreen: React.FC = () => {
   const gameLoopRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
   const lastDropTimeRef = useRef<number>(0);
+  const [scale, setScale] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const {
     gameStatus,
@@ -143,6 +145,33 @@ const GameScreen: React.FC = () => {
   } = useGameStore();
 
   const speedBlocksPerSecond = (1000 / dropInterval).toFixed(1);
+
+  // Add resize handler
+  useEffect(() => {
+    const handleResize = () => {
+      if (!containerRef.current) return;
+
+      const maxHeight = window.innerHeight * 0.9; // 90% of viewport height
+      const maxWidth = window.innerWidth * 0.9; // 90% of viewport width
+
+      // Base size of the game container (original size)
+      const baseWidth = 900; // Approximate width of the game container
+      const baseHeight = 700; // Approximate height of the game container
+
+      // Calculate scale based on both dimensions
+      const scaleX = maxWidth / baseWidth;
+      const scaleY = maxHeight / baseHeight;
+
+      // Use the smaller scale to ensure the game fits both dimensions
+      const newScale = Math.min(scaleX, scaleY, 1); // Never scale up beyond original size
+
+      setScale(newScale);
+    };
+
+    handleResize(); // Initial calculation
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -262,6 +291,7 @@ const GameScreen: React.FC = () => {
       />
 
       <div
+        ref={containerRef}
         style={{
           display: "flex",
           gap: "30px",
@@ -271,6 +301,9 @@ const GameScreen: React.FC = () => {
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+          transition: "transform 0.3s ease",
         }}
       >
         <div
@@ -594,6 +627,15 @@ const GameScreen: React.FC = () => {
             50% {
               opacity: 0.6;
             }
+          }
+
+          .game-screen {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
           }
         `}
       </style>
