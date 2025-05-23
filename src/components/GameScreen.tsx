@@ -137,6 +137,7 @@ const GameScreen: React.FC = () => {
     heldPiece,
     startGame,
     pauseGame,
+    resumeGame,
     movePiece,
     rotatePiece,
     hardDrop,
@@ -175,7 +176,7 @@ const GameScreen: React.FC = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (gameStatus !== "playing") return;
+      if (gameStatus !== "playing" && gameStatus !== "paused") return;
 
       const { controls } = settings;
 
@@ -202,7 +203,7 @@ const GameScreen: React.FC = () => {
           if (gameStatus === "playing") {
             pauseGame();
           } else if (gameStatus === "paused") {
-            startGame();
+            resumeGame();
           }
           break;
       }
@@ -218,7 +219,7 @@ const GameScreen: React.FC = () => {
     hardDrop,
     holdPiece,
     pauseGame,
-    startGame,
+    resumeGame,
   ]);
 
   useEffect(() => {

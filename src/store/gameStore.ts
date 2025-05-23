@@ -26,6 +26,7 @@ interface GameStore extends GameState {
   updateScore: (linesCleared: number) => void
   startGame: () => void
   pauseGame: () => void
+  resumeGame: () => void
   endGame: () => void
   resetGame: () => void
   updateSettings: (settings: Partial<GameSettings>) => void
@@ -421,6 +422,11 @@ export const useGameStore = create<GameStore>()(
       pauseGame: () => {
         set({ gameStatus: 'paused' })
         soundManager.pauseMusic()
+      },
+
+      resumeGame: () => {
+        set({ gameStatus: 'playing' })
+        soundManager.resumeMusic()
       },
 
       endGame: () => {
