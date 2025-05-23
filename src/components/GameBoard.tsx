@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGameStore } from "../store/gameStore";
 import "../styles/GameBoard.css";
-import { BOARD_WIDTH, BOARD_HEIGHT } from "../types";
+import { BOARD_WIDTH } from "../types";
 import LineEffects from "./LineEffects";
 import ScoreEffects from "./ScoreEffects";
 import LevelUpEffects from "./LevelUpEffects";

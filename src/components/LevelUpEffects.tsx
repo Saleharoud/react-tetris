@@ -21,7 +21,7 @@ const LevelUpEffects: React.FC = () => {
   const [particles, setParticles] = useState<LevelParticle[]>([]);
 
   useEffect(() => {
-    const handleLevelUp = (e: LevelUpEvent) => {
+    const handleLevelUp = (_: LevelUpEvent) => {
       const newParticles: LevelParticle[] = [];
 
       // Create particles around the board

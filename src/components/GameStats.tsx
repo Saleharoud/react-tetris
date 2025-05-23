@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useGameStore } from "../store/gameStore";
 
 const GameStats = () => {

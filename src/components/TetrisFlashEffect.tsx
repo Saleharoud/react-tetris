@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "@react-spring/web";
-import { useGameStore } from "../store/gameStore";
 
 interface TetrisFlashEvent {
   detail: {

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../store/gameStore";
 import GameBoard from "./GameBoard";
 import VolumeControl from "./VolumeControl";
-import ScorePanel from "./ScorePanel";
-import NextPieces from "./NextPieces";
 import ScreenEffects from "./ScreenEffects";
 
 const PiecePreview: React.FC<{ piece: any; size?: number }> = ({

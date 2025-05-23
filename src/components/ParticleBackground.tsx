@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 
 const ParticleBackground = () => {
   const particlesRef = useRef<HTMLDivElement>(null);
